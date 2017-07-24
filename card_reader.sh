@@ -1,6 +1,6 @@
 #!/bin/bash
 clear
-while [1]
+while [ 1 ]
 do
     echo "Please Swipe Your Card (Press Enter to Exit):"
     read data
