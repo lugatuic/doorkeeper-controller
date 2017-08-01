@@ -17,10 +17,16 @@ do
     university="$(echo "$data"|cut -d\/ -f2|cut -d\^ -f1)"
     expDate="$(echo "$data"|cut -d\^ -f3)"
     expDate="${expDate:0:2}/${expDate:2:2}"
- 
+
     echo "Card Number: $num"
     echo "UIN: $uin"
     echo "Card Holder: $university $cardholder"
     echo "Card Expires(yr/mo): $expDate"
     echo "----------------------------"
+
+    if [ $university = "UNIVERSITY" ] && [ $cardholder = "CARDHOLDER" ];
+    then    
+        curl -d "UIN=$uin" "localhost"
+    fi
+    #if statment to check if returned data is valide
 done
