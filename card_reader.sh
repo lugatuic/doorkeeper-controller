@@ -1,4 +1,13 @@
 #!/bin/bash
+
+function call_open_door {
+    #add if statment to check if returned data is valide then open door
+    if [ $1 -eq "1" ]
+    then
+        python ./open_door.py
+    fi
+}
+
 clear
 while [ 1 ]
 do
@@ -26,7 +35,9 @@ do
 
     if [ $university = "UNIVERSITY" ] && [ $cardholder = "CARDHOLDER" ];
     then    
-        curl -d "UIN=$uin" "localhost"
+        result="$(curl -d "UIN=$uin" "localhost")"
+        #get return data and pass off to function
+        call_open_door $result
     fi
-    #if statment to check if returned data is valide
+
 done
