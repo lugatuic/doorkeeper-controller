@@ -1,16 +1,28 @@
 import RPi.GPIO as GPIO
 import time
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(37, GPIO.OUT)
-GPIO.setup(38, GPIO.OUT)
-time.sleep(0.5)
 
-GPIO.output(37, GPIO.LOW)
-GPIO.output(38, GPIO.LOW)
-time.sleep(5)
+def primePids():
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(37, GPIO.OUT)
+        GPIO.setup(38, GPIO.OUT)
+        time.sleep(0.5)
 
-GPIO.output(37, GPIO.HIGH)
-GPIO.output(38, GPIO.HIGH)
+def openSolenoid():
+        primePids();
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.output(37, GPIO.LOW)
+        GPIO.output(38, GPIO.LOW)
 
-time.sleep(1)
-GPIO.cleanup()
+def wait(seconds):
+        time.sleep(seconds)
+
+def closeSolenoid():
+        GPIO.output(37, GPIO.HIGH)
+        GPIO.output(38, GPIO.HIGH)
+
+        time.sleep(1)
+        GPIO.cleanup()
+
+openSolenoid()
+wait(5)
+closeSolenoid()
