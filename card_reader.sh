@@ -2,11 +2,14 @@
 
 function call_open_door {
     #add if statment to check if returned data is valide then open door
-    if [ $1 -eq "1" ]
+    if [ $1 = "1" ]
     then
+        echo "Access Granted!"
         python ./open_door.py
     fi
 }
+
+allowable=()
 
 clear
 while [ 1 ]
@@ -31,13 +34,17 @@ do
     echo "UIN: $uin"
     echo "Card Holder: $university $cardholder"
     echo "Card Expires(yr/mo): $expDate"
+    echo "Swipe Timestamp: `date`"
     echo "----------------------------"
 
     if [ $university = "UNIVERSITY" ] && [ $cardholder = "CARDHOLDER" ];
-    then    
-        result="$(curl -d "UIN=$uin" "localhost")"
+    then
+        if [[ " ${allowable[@]} " =~ " ${uin} " ]]; then
+          call_open_door "1"
+        fi
+        #result="$(curl -d "UIN=$uin" "localhost")"
         #get return data and pass off to function
-        call_open_door $result
+        #call_open_door $result
     fi
 
 done
