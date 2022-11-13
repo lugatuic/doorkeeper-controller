@@ -5,7 +5,7 @@ function call_open_door {
     if [ $1 = "1" ]
     then
         echo "Access Granted!"
-        python ./open_door.py
+        python $(dirname $0)/open_door.py
     fi
 }
 
