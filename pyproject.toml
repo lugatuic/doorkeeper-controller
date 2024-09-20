@@ -1,0 +1,14 @@
+[project]
+name = "open_door"
+description = "The controller program to control physical mechanism."
+version = "0.0.1"
+dependencies = [
+	"RPi.GPIO"
+]
+classifiers = [
+	"License :: OSI Approved :: MIT License",
+]
+
+[project.urls]
+Homepage = "https://lug.cs.uic.edu"
+Repository = "https://github.com/lugatuic/doorkeeper-controller"

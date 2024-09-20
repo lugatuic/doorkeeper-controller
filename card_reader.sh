@@ -5,7 +5,7 @@ function call_open_door {
     if [ $1 = "1" ]
     then
         echo "Access Granted!"
-        python /home/pi/doorkeeper-controller/open_door.py
+	python -m open_door
     fi
 }
 
