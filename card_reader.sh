@@ -5,18 +5,19 @@ function call_open_door {
     if [ $1 = "1" ]
     then
         echo "Access Granted!"
-        python $(dirname $0)/open_door.py
+        python /home/pi/doorkeeper-controller/open_door.py
     fi
 }
 
-allowable=()
+allowable=("662270220" "667510949" "676748060" "672213118" "665458791" "673224355" "660924192" "667296308" "655801506" "678847040" "677179397" "657488118" "662270220" "677179394")
 
 clear
 while [ 1 ]
 do
     echo "Please Swipe Your Card (Press Enter to Exit):"
-    read data
- 
+    read -d'?' -r data
+
+    echo $data
     if [ "$data" = "" ]
     then
         echo "Exiting"
@@ -40,11 +41,11 @@ do
     if [ $university = "UNIVERSITY" ] && [ $cardholder = "CARDHOLDER" ];
     then
         if [[ " ${allowable[@]} " =~ " ${uin} " ]]; then
-          call_open_door "1"
+            call_open_door "1"
         fi
-        #result="$(curl -d "UIN=$uin" "localhost")"
+        #result="$(curl --insecure -d "UIN=$uin" "https://chopin.acm.cs/~clee231/doorcheck/")"
         #get return data and pass off to function
-        #call_open_door $result
+        #call_open_door "$result"
     fi
 
 done

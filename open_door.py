@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import RPi.GPIO as GPIO
 import time
 
@@ -23,6 +24,7 @@ def closeSolenoid():
         time.sleep(1)
         GPIO.cleanup()
 
-openSolenoid()
-wait(5)
-closeSolenoid()
+if __name__ == "__main__":
+    openSolenoid()
+    wait(10)
+    closeSolenoid()
