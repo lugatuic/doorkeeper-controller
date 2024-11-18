@@ -10,9 +10,7 @@ class FileMutex:
 
     async def __aenter__(self):
         self.fd = open(self.file, 'wb')
-        def aquire_lock():
-            flock(self.fd.fileno(), LOCK_EX)
-        await to_thread(aquire_lock)
+        await to_thread(flock, self.fd.fileno(), LOCK_EX)
 
     async def __aexit__(self, _type, _value, _tb):
         flock(self.fd.fileno(), LOCK_UN)
