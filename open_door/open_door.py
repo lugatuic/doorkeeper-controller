@@ -17,24 +17,24 @@ class FileMutex:
         self.fd.close()
 
 async def primePids():
-        GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(37, GPIO.OUT)
-        GPIO.setup(38, GPIO.OUT)
-        await sleep(0.5)
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(37, GPIO.OUT)
+    GPIO.setup(38, GPIO.OUT)
+    await sleep(0.5)
 
 async def openSolenoid():
-        await primePids()
-        GPIO.setmode(GPIO.BOARD)
-        GPIO.output(37, GPIO.LOW)
-        GPIO.output(38, GPIO.LOW)
+    await primePids()
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.output(37, GPIO.LOW)
+    GPIO.output(38, GPIO.LOW)
 
 async def closeSolenoid():
-        GPIO.setmode(GPIO.BOARD)
-        GPIO.output(37, GPIO.HIGH)
-        GPIO.output(38, GPIO.HIGH)
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.output(37, GPIO.HIGH)
+    GPIO.output(38, GPIO.HIGH)
 
-        await sleep(1)
-        GPIO.cleanup()
+    await sleep(1)
+    GPIO.cleanup()
 
 async def openDoor():
     async with FileMutex(OPEN_DOOR_LOCKFILE_NAME):
