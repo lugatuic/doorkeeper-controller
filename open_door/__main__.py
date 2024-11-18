@@ -1,7 +1,5 @@
-from open_door import closeSolenoid, openSolenoid, FileMutex, OPEN_DOOR_LOCKFILE_NAME
-from time import sleep
+from open_door import openDoor
+from asyncio import run
 
-with FileMutex(OPEN_DOOR_LOCKFILE_NAME):
-    openSolenoid()
-    sleep(10)
-    closeSolenoid()
+# openDoor is an async routine
+run(openDoor())
