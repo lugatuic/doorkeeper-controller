@@ -1,5 +1,5 @@
 import RPi.GPIO as GPIO
-from fcntl import LOCK_NB, flock, LOCK_EX, LOCK_UN
+from fcntl import flock, LOCK_EX, LOCK_UN
 from asyncio import sleep, to_thread
 
 OPEN_DOOR_LOCKFILE_NAME = '/tmp/open_door.lock'
