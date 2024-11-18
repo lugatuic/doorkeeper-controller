@@ -1,5 +1,6 @@
-from open_door import closeSolenoid, openSolenoid, wait
+from open_door import closeSolenoid, openSolenoid
+from time import sleep
 
 openSolenoid()
-wait(10)
+sleep(10)
 closeSolenoid()
