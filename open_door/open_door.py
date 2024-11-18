@@ -1,7 +1,8 @@
 import RPi.GPIO as GPIO
 from fcntl import flock, LOCK_EX, LOCK_UN
 from asyncio import sleep
-from open_door import OPEN_DOOR_LOCKFILE_NAME
+
+OPEN_DOOR_LOCKFILE_NAME = '/tmp/open_door.lock'
 
 class FileMutex:
     def __init__(self, file):
