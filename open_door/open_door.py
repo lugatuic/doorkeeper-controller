@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
-from fcntl import flock, LOCK_EX, LOCK_UN
-from asyncio import sleep
+from fcntl import LOCK_NB, flock, LOCK_EX, LOCK_UN
+from asyncio import sleep, to_thread
 
 OPEN_DOOR_LOCKFILE_NAME = '/tmp/open_door.lock'
 
@@ -8,11 +8,13 @@ class FileMutex:
     def __init__(self, file):
         self.file = file
 
-    def __enter__(self):
+    async def __aenter__(self):
         self.fd = open(self.file, 'wb')
-        flock(self.fd.fileno(), LOCK_EX)
+        def aquire_lock():
+            flock(self.fd.fileno(), LOCK_EX)
+        await to_thread(aquire_lock)
 
-    def __exit__(self, _type, _value, _tb):
+    async def __aexit__(self, _type, _value, _tb):
         flock(self.fd.fileno(), LOCK_UN)
         self.fd.close()
 
@@ -37,7 +39,7 @@ async def closeSolenoid():
         GPIO.cleanup()
 
 async def openDoor():
-    with FileMutex(OPEN_DOOR_LOCKFILE_NAME):
+    async with FileMutex(OPEN_DOOR_LOCKFILE_NAME):
         await openSolenoid()
         await sleep(10)
         await closeSolenoid()
