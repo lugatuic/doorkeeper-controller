@@ -1,6 +1,7 @@
-from open_door import closeSolenoid, openSolenoid
+from open_door import closeSolenoid, openSolenoid, FileMutex, OPEN_DOOR_LOCKFILE_NAME
 from time import sleep
 
-openSolenoid()
-sleep(10)
-closeSolenoid()
+with FileMutex(OPEN_DOOR_LOCKFILE_NAME):
+    openSolenoid()
+    sleep(10)
+    closeSolenoid()
